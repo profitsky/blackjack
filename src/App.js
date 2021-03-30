@@ -1,40 +1,23 @@
-import './style.sass'
+import './style.scss'
 import * as THREE from 'three'
+import { World } from "./world/World"
 
-// Canvas
-const canvas = document.querySelector('canvas.webgl')
 
-// Scene
-const scene = new THREE.Scene()
+class App{
 
-/**
- * Object
- */
-const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
-const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
+    constructor()
+    {
+        this.container = document.querySelector("#container");        
+        this.world = new World(this.container);
+    };
 
-/**
- * Sizes
- */
-const sizes = {
-    width: 800,
-    height: 600
-}
+    run()
+    {
+        this.world.render();
+        
+    };
 
-/**
- * Camera
- */
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
-camera.position.z = 3
-scene.add(camera)
+};
 
-/**
- * Renderer
- */
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
-})
-renderer.setSize(sizes.width, sizes.height)
-renderer.render(scene, camera)
+const game = new App()
+game.run()
